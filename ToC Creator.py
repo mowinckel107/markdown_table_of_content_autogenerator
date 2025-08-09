@@ -44,7 +44,9 @@ def main_function():
 
 
     os.remove(FILE_PATH) 
-    os.rename(FILE_PATH + "_temp", FILE_PATH) 
+    os.rename(FILE_PATH + "_temp", FILE_PATH)
+
+    print("I created the table of content for you :3")
 
 
 def __harvest_from_file(file_path : str) -> str:
