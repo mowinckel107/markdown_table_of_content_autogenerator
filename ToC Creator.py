@@ -18,12 +18,17 @@ When going deeper place 4 * Depth of indents
 """
 
 
-FILE_PATH : str = "/home/moose/Desktop/GoDot Notes noter/GoDot noter notes.md"
+FILE_PATH : str = "/home/moose/Desktop/teaching_git/git notes.md"
+A_INDENT : str = "    " # Use this to decide how many spaces or tabs you want :3
 
 def main_function():
 
     if not ( os.path.isfile(FILE_PATH) ):
-        print(f"The argument {FILE_PATH} does not appear to be the path to a file")
+
+        if FILE_PATH == "":
+            print("Ehhh... mate, the FILE_PATH variable is empty...")
+        else:
+            print(f"The argument {FILE_PATH} does not appear to be the path to a file")
 
     table_of_content : str = __harvest_from_file(FILE_PATH)
 
@@ -46,7 +51,13 @@ def __harvest_from_file(file_path : str) -> str:
     table_of_content : str = "\n\n\n\n# Table of Content:\n\n"
 
     title_counters : dict[int, int] = dict()
-    sub_headline_depth : list[int] = [] # Lists lenght represents depth. The numbers the amount of hashtags that created it
+
+    # Lists lenght represents depth. The numbers the amount of hashtags that created it
+    # This is so we account for not always starting at #. We may start at ###
+    # And we may skip some so we go from ## to ####
+    sub_headline_depth : list[int] = []
+
+
     current_hashtag_depth : int = 0
 
 
@@ -129,14 +140,13 @@ def __create_headline(number : int, words_to_write : list[str], indents : int ):
 
     endcoded_title : str = title.replace(" ", "-")
 
-    a_indent : str = "    "
-    indent : str = ""
+    total_indent : str = ""
     for _ in range( indents ):
-        indent += a_indent
+        total_indent += A_INDENT
 
     # Looks like this:
     # 2. [To delete a remote branch](#To-delete-a-remote-branch)
-    return f"{indent}{number}. [{title}](#{endcoded_title})\n"
+    return f"{total_indent}{number}. [{title}](#{endcoded_title})\n"
 
 
 
