@@ -137,11 +137,27 @@ def __create_headline(number : int, words_to_write : list[str], indents : int ):
 
     title = title[:-1] # Remove last space
 
+    if title.startswith("angle brackets:"):
+        print("heeeere!")
+
+    title = title.strip(" ")
     title = title.strip("*")
     title = title.strip(":")
+    title = title.strip(".")
 
-    endcoded_title : str = title.replace(" ", "-")
+    endcoded_title : str = title
+
+
     endcoded_title = endcoded_title.replace("/", "")
+    endcoded_title = endcoded_title.replace(":", "")
+    endcoded_title = endcoded_title.replace("|", "")
+    endcoded_title = endcoded_title.replace("[", "")
+    endcoded_title = endcoded_title.replace("]", "")
+    endcoded_title = endcoded_title.replace("<", "")
+    endcoded_title = endcoded_title.replace(">", "")
+
+
+    endcoded_title = endcoded_title.replace(" ", "-")
 
 
     total_indent : str = ""
@@ -160,3 +176,4 @@ if __name__ == "__main__":
     print("")
     main_function()
     print("")
+
