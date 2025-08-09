@@ -87,7 +87,7 @@ def __harvest_from_file(file_path : str) -> str:
                 title_counters[current_hashtag_depth] = 2 # We just wrote 1
 
                 table_of_content += headline
-                
+
             elif current_hashtag_depth > len(first_word): # Going up
                 current_hashtag_depth = len(first_word)
 
@@ -97,7 +97,9 @@ def __harvest_from_file(file_path : str) -> str:
                         sub_headline_depth.append( current_hashtag_depth )
                         title_counters[current_hashtag_depth] = 1
 
-                headline : str = __create_headline(title_counters[current_hashtag_depth], words[1:], len(sub_headline_depth)-1)
+                headline : str = "\n"
+                headline += __create_headline(title_counters[current_hashtag_depth], words[1:], len(sub_headline_depth)-1)
+                headline += "\n"
                 title_counters[current_hashtag_depth] += 1
 
                 table_of_content += headline
