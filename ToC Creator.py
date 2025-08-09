@@ -141,6 +141,8 @@ def __create_headline(number : int, words_to_write : list[str], indents : int ):
     title = title.strip(":")
 
     endcoded_title : str = title.replace(" ", "-")
+    endcoded_title = endcoded_title.replace("/", "")
+
 
     total_indent : str = ""
     for _ in range( indents ):
