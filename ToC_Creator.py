@@ -16,35 +16,41 @@ When going deeper place 4 * Depth of indents
 
 
 """
+# TODO If a hashtag is NOT followed by a space, it is C syntax, not markdown. This should be ignored.
 
 
-FILE_PATH : str = "/home/moose/Desktop/teaching_git/git notes.md"
-A_INDENT : str = "    " # Use this to decide how many spaces or tabs you want :3
+A_INDENT : str = "   " # Use this to decide how many spaces or tabs you want :3
 
 def main_function():
 
-    if not ( os.path.isfile(FILE_PATH) ):
+    if len(sys.argv) < 2:
+        print("Need to give the script a path to the file you want to create a Table of Content for")
+        exit(0)
 
-        if FILE_PATH == "":
-            print("Ehhh... mate, the FILE_PATH variable is empty...")
+    user_input = sys.argv[1]
+
+    if not ( os.path.isfile(user_input) ):
+
+        if user_input == "":
+            print("Ehhh... mate, the user_input variable is empty...")
         else:
-            print(f"The argument {FILE_PATH} does not appear to be the path to a file")
+            print(f"The argument user_input({user_input}) does not appear to be the path to a file")
 
-    table_of_content : str = __harvest_from_file(FILE_PATH)
+    table_of_content : str = __harvest_from_file(user_input)
 
 
-    temp_file = open(FILE_PATH + "_temp", "w")
+    temp_file = open(user_input + "_temp", "w")
     temp_file.write(table_of_content)
 
-    with open(FILE_PATH, "r") as file:
+    with open(user_input, "r") as file:
         for line in file:
             temp_file.write(line)
 
     temp_file.close()
 
 
-    os.remove(FILE_PATH) 
-    os.rename(FILE_PATH + "_temp", FILE_PATH)
+    os.remove(user_input) 
+    os.rename(user_input + "_temp", user_input)
 
     print("I created the table of content for you :3")
 
@@ -63,7 +69,7 @@ def __harvest_from_file(file_path : str) -> str:
     current_hashtag_depth : int = 0
 
 
-    with open(FILE_PATH, "r") as file:
+    with open(file_path, "r") as file:
         for line in file:
 
             if not line.startswith("#"):
@@ -73,8 +79,6 @@ def __harvest_from_file(file_path : str) -> str:
             first_word : str = words[0]
 
             if not __line_only_contains( first_word, "#" ):
-                print("Weird line:")
-                print(line)
                 continue
 
 
@@ -97,9 +101,9 @@ def __harvest_from_file(file_path : str) -> str:
                         sub_headline_depth.append( current_hashtag_depth )
                         title_counters[current_hashtag_depth] = 1
 
-                headline : str = "\n"
+                headline : str = ""
                 headline += __create_headline(title_counters[current_hashtag_depth], words[1:], len(sub_headline_depth)-1)
-                headline += "\n"
+                # headline += "\n"
                 title_counters[current_hashtag_depth] += 1
 
                 table_of_content += headline
