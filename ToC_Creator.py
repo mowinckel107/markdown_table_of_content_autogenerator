@@ -4,19 +4,6 @@ import os
 import sys
 
 
-"""
-Run through file
-when encountering #'s
-keep track of how deep we are
-keep track of the amount of headlines we have had with that level so we can number them
-
-when getting less deep, set amount of that level to 0
-
-When going deeper place 4 * Depth of indents
-
-
-"""
-# TODO If a hashtag is NOT followed by a space, it is C syntax, not markdown. This should be ignored.
 
 
 A_INDENT : str = "   " # Use this to decide how many spaces or tabs you want :3
