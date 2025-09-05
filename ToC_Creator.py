@@ -159,9 +159,13 @@ def __create_headline(number : int, words_to_write : list[str], indents : int ):
     for _ in range( indents ):
         total_indent += A_INDENT
 
+    space : str = ""
+    if number < 10:
+        space = " "
+
     # Looks like this:
     # 2. [To delete a remote branch](#To-delete-a-remote-branch)
-    return f"{total_indent}{number}. [{title}](#{endcoded_title})\n"
+    return f"{total_indent}{number}.{space} [{title}](#{endcoded_title})\n"
 
 
 
