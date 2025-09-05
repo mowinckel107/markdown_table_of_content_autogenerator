@@ -33,16 +33,18 @@ def main_function():
 
         if user_input == "":
             print("Ehhh... mate, the user_input variable is empty...")
+            sys.exit(-1)
         else:
             print(f"The argument user_input({user_input}) does not appear to be the path to a file")
+            sys.exit(-1)
 
     table_of_content : str = __harvest_from_file(user_input)
 
 
-    temp_file = open(user_input + "_temp", "w")
+    temp_file = open(user_input + "_temp", "w", encoding="utf-8")
     temp_file.write(table_of_content)
 
-    with open(user_input, "r") as file:
+    with open(user_input, "r", encoding="utf-8") as file:
         for line in file:
             temp_file.write(line)
 
@@ -69,7 +71,7 @@ def __harvest_from_file(file_path : str) -> str:
     current_hashtag_depth : int = 0
 
 
-    with open(file_path, "r") as file:
+    with open(file_path, "r", encoding="utf-8") as file:
         for line in file:
 
             if not line.startswith("#"):
